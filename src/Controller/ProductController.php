@@ -73,7 +73,6 @@ class ProductController extends AbstractController
             );
             $product->setImage($filename);
             $productRepository->save($product, true);
-
             return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
         }
 
