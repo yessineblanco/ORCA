@@ -3,8 +3,14 @@
 namespace App\Entity;
 
 use App\Repository\ProductRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+
+
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 class Product
@@ -32,6 +38,9 @@ class Product
 
     #[ORM\Column]
     private ?int $ProductQuantity = null;
+
+    #[ORM\Column]
+    private ?String $image;
 
     public function getId(): ?int
     {
@@ -108,5 +117,20 @@ class Product
         $this->ProductQuantity = $ProductQuantity;
 
         return $this;
+    }
+    /**
+     * @return string|null
+     */
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param string|null $image
+     */
+    public function setImage(?string $image): void
+    {
+        $this->image = $image;
     }
 }

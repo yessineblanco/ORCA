@@ -3,6 +3,7 @@
 {% block title %}Product{% endblock %}
 
 {% block body %}
+    <div class="container">
     <h1>Product</h1>
 
     <table class="table">
@@ -31,6 +32,11 @@
                 <th>ProductQuantity</th>
                 <td>{{ product.ProductQuantity }}</td>
             </tr>
+            <tr>
+                <th>Product Image</th>
+                <td> <img height="400" width="400"  src="{{app.request.basepath}}/uploads/{{product.image}}" alt=""></td>
+                </td>
+            </tr>
         </tbody>
     </table>
 
@@ -39,4 +45,5 @@
     <a href="{{ path('app_product_edit', {'id': product.id}) }}">edit</a>
 
     {{ include('product/_delete_form.html.twig') }}
+    </div>
 {% endblock %}

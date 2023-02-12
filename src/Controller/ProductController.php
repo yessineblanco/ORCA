@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Product;
+use App\Entity\ProductImages;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -29,6 +30,14 @@ class ProductController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $file = $request->files->get('product')['image'];
+            $uploads_directory = $this->getParameter('uploads_directory');
+            $filename = md5(uniqid()) . '.' . $file->guessExtension();
+            $file->move(
+                $uploads_directory,
+                $filename
+            );
+            $product->setImage($filename);
             $productRepository->save($product, true);
 
             return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
@@ -55,6 +64,14 @@ class ProductController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $file = $request->files->get('product')['image'];
+            $uploads_directory = $this->getParameter('uploads_directory');
+            $filename = md5(uniqid()) . '.' . $file->guessExtension();
+            $file->move(
+                $uploads_directory,
+                $filename
+            );
+            $product->setImage($filename);
             $productRepository->save($product, true);
 
             return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
