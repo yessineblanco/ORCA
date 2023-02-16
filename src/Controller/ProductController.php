@@ -17,11 +17,17 @@ class ProductController extends AbstractController
     #[Route('/', name: 'app_product_index', methods: ['GET'])]
     public function index(ProductRepository $productRepository): Response
     {
+        return $this->render('product/cards.html.twig', [
+            'products' => $productRepository->findAll(),
+        ]);
+    }
+    #[Route('/back', name: 'app_product_index_back', methods: ['GET'])]
+    public function indexback(ProductRepository $productRepository): Response
+    {
         return $this->render('product/index.html.twig', [
             'products' => $productRepository->findAll(),
         ]);
     }
-
     #[Route('/new', name: 'app_product_new', methods: ['GET', 'POST'])]
     public function new(Request $request, ProductRepository $productRepository): Response
     {
@@ -53,6 +59,13 @@ class ProductController extends AbstractController
     public function show(Product $product): Response
     {
         return $this->render('product/show.html.twig', [
+            'product' => $product,
+        ]);
+    }
+    #[Route('back/{id}', name: 'app_product_show_back', methods: ['GET'])]
+    public function showback(Product $product): Response
+    {
+        return $this->render('product/showback.html.twig', [
             'product' => $product,
         ]);
     }
@@ -89,6 +102,6 @@ class ProductController extends AbstractController
             $productRepository->remove($product, true);
         }
 
-        return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_product_index_back', [], Response::HTTP_SEE_OTHER);
     }
 }
