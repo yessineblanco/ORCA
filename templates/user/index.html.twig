@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_BACK.html.twig' %}
 
 {% block title %}User index{% endblock %}
 
@@ -8,7 +8,7 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
+                
                 <th>Username</th>
                 <th>Roles</th>
                 <th>Password</th>
@@ -23,10 +23,24 @@
         <tbody>
         {% for user in users %}
             <tr>
-                <td>{{ user.id }}</td>
+                
                 <td>{{ user.username }}</td>
-                <td>{{ user.roles ? user.roles|join(', ') : '' }}</td>
-                <td>{{ user.password }}</td>
+                <td>
+                    {% if 'ROLE_ADMIN' in user.roles %}
+                        {{"Administrateur"}}
+                    {% elseif 'ROLE_COACH' in user.roles %}
+                        {{"Coach"}}
+                    {% elseif 'ROLE_MEDECIN' in user.roles %}
+                        {{"Medecin"}}
+                    {% elseif 'ROLE_NUTRITIONNISTE' in user.roles %}
+                        {{"Nutritionniste"}}
+                    {% elseif 'ROLE_KINESITHERAPEUTE' in user.roles %}
+                        {{"Kinésitherapeute"}}
+                    {% else %}
+                        {{"Utilisateur"}}
+                    {% endif %}
+                </td>
+                <td>{{ user.password ? '*********' }}</td>
                 <td>{{ user.email }}</td>
                 <td>{{ user.fullname }}</td>
                 <td>{{ user.naissance ? user.naissance|date('Y-m-d') : '' }}</td>
@@ -34,7 +48,10 @@
                 <td>{{ user.isBanned ? 'Yes' : 'No' }}</td>
                 <td>
                     <a href="{{ path('app_user_show', {'id': user.id}) }}">show</a>
-                    <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
+                    <a  href="{{ path('app_user_edit_roles', {'id': user.id}) }}" class="nk-btn nk-btn-rounded nk-btn-color-white" >
+                            <span>Edit Role</span>
+                            <span class="icon"><i class="ion-paper-airplane"></i></span>
+                    </a>
                 </td>
             </tr>
         {% else %}
@@ -44,6 +61,4 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_user_new') }}">Create new</a>
 {% endblock %}

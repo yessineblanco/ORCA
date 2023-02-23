@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+    <table class="table">
+        <tbody>
+        {% if app.user.image %}
+        <tr>
+        <td><img src="{{ asset(user.image, 'images') }}" alt="My Image"></td>
+        </tr>
+        {% endif %}
+            <tr>
+                <th>Email</th>
+                <td>{{ user.email }}</td>
+            </tr>
+            <tr>
+                <th>Role</th>
+                <td>
+                    {% if 'ROLE_ADMIN' in user.roles %}
+                        {{"Administrateur"}}
+                    {% elseif 'ROLE_COACH' in user.roles %}
+                        {{"Coach"}}
+                    {% elseif 'ROLE_MEDECIN' in user.roles %}
+                        {{"Medecin"}}
+                    {% elseif 'ROLE_NUTRITIONNISTE' in user.roles %}
+                        {{"Nutritionniste"}}
+                    {% elseif 'ROLE_KINESITHERAPEUTE' in user.roles %}
+                        {{"Kinésitherapeute"}}
+                    {% else %}
+                        {{"Utilisateur"}}
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>Is Your Account Verified</th>
+                <td>{{ user.isVerified ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Username</th>
+                <td>{{ user.username }}</td>
+            </tr>
+            <tr>
+                <th>Fullname</th>
+                <td>{{ user.fullname }}</td>
+            </tr>
+            <tr>
+                <th>Birthdate</th>
+                <td>{{ user.naissance ? user.naissance|date('Y-m-d') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('editprofile', {'username': app.user.username}) }}" class="nk-btn nk-btn-rounded nk-btn-color-white">
+                            <span>Edit Your Profile</span>
+                            <span class="icon"><i class="ion-paper-airplane"></i></span>
+                    </a>
+
+{% endblock %}
+
