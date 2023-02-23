@@ -11,6 +11,8 @@
             <div class="product-details">
 
                 <h1>{{ product.ProductName }}</h1>
+            <br>
+                <hr/>
                 <span class="hint-star star">
                     <i class="fa fa-star" aria-hidden="true"></i>
                     <i class="fa fa-star" aria-hidden="true"></i>
@@ -18,34 +20,36 @@
                     <i class="fa fa-star" aria-hidden="true"></i>
                     <i class="fa fa-star-o" aria-hidden="true"></i>
                 </span>
-                <p class="information">{{ product.ProductDescription }} </p>
                 <div class="control">
                     <button class="btn">
                         <span class="price">{{ product.ProductPrice }}TND</span>
-                        <span class="shopping-cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i></span>
-                        <span class="buy"> <a href="{{ path('app_product_show', {'id': product.id}) }}">Get now </a> </span>
+                        <span class=""> <a href="{{ path('app_product_show', {'id': product.id}) }}">Get now </a> </span>
                     </button>
                 </div>
-
             </div>
+
             <div class="product-image">
                 <img height="400" width="400"  src="{{app.request.basepath}}/uploads/{{product.image}}" alt="">
                 <div class="info">
                     <h2> Description</h2>
                     <ul>
-                        <li><strong>Date upload: </strong>{{ product.UpdateDate ? product.UpdateDate|date('Y-m-d') : '' }} </li>
-
+                        <p class="information">{{ product.ProductDescription }} </p>
 
                     </ul>
                 </div>
             </div>
+
             </div>
 
+            <div class="pagination-item">
+                <span>{{ knp_pagination_render(products) }}</span>
+            </div>
 
         {% else %}
             <tr>
                 <td colspan="7">no records found</td>
             </tr>
+
         {% endfor %}
 
 

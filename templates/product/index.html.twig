@@ -6,8 +6,27 @@
 
     <div class="container">
     <h1>Product index</h1>
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12 offset-md-11">
+                        <form action="{{ path('search_product')}}" method="GET">
+                            <div class="input-group">
+                                <input type="search" class="form-control form-control-lg" placeholder="Entrer le nom d'un produit" id="site-search" name="search">
+                                <div class="input-group-append">
+                                    <button  class="btn btn-lg btn-default">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+       <button> <a href="{{ path('pdfp')}}" class="btn btn-primary">PDF</a></button>
 
-    <table class="table">
+        <table class="table">
         <thead>
             <tr>
                 <th>ProductName</th>
@@ -31,13 +50,17 @@
                     <a href="{{ path('app_product_show_back', {'id': product.id}) }}">show </a>
                 </td>
             </tr>
+
         {% else %}
             <tr>
                 <td colspan="7">no records found</td>
             </tr>
         {% endfor %}
+
         </tbody>
+
     </table>
+        <span>{{ knp_pagination_render(products) }}</span>
 
     <a href="{{ path('app_product_new') }}">Create new</a>
     </div>

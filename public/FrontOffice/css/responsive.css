@@ -129,6 +129,7 @@
 
 @media (min-width: 992px) and (max-width: 1199px) {
     .navbar {
+        position:fixed; top:0px; left:0px;
         padding: .5rem 30px;
     }
     .header_section {
