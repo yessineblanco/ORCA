@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\DBAL\Types\Types;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
@@ -18,13 +19,15 @@ class User implements UserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank (message:"Please enter an email")]
+    #[Assert\Email (message:"The email '{{ value }}' is not a valid email , please list a valid one. ")]
     private ?string $email = null;
 
     #[ORM\Column(type: Types::ARRAY)]
     private array $roles = [];
 
     #[ORM\Column(length: 255)]
-    private ?string $password = null;
+    private ?string $password ;
 
     #[ORM\Column]
     private ?bool $isVerified = null;
@@ -33,16 +36,24 @@ class User implements UserInterface
     private ?bool $isBanned = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $username = null;
+    #[Assert\NotBlank (message:"Please enter your username")]
+    #[Assert\Length (min:5 , max:30, minMessage:"Your username must be at least {{ limit }} characters long", maxMessage:"Your username characters max is {{ limit }}")]
+    private ?string $username ;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank (message:"Please enter your fullname")]
+    #[Assert\Regex (pattern:"/^[a-zA-Z]+ [a-zA-Z]+/",message:"Please enter your full name with a space")]
     private ?string $fullname = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $naissance = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $image = null;
+
     public function __construct()
     {
+        $this->commandes = new ArrayCollection();
         
     }
 
@@ -181,5 +192,15 @@ class User implements UserInterface
         // $this->plainPassword = null;
     }
 
-   
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
 }
