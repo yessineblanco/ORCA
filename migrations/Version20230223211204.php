@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20230216191625 extends AbstractMigration
+final class Version20230223211204 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -26,6 +26,7 @@ final class Version20230216191625 extends AbstractMigration
         $this->addSql('ALTER TABLE commande ADD CONSTRAINT FK_6EEAA67DA76ED395 FOREIGN KEY (user_id) REFERENCES user (id)');
         $this->addSql('ALTER TABLE ligne_commande ADD CONSTRAINT FK_3170B74B82EA2E54 FOREIGN KEY (commande_id) REFERENCES commande (id)');
         $this->addSql('ALTER TABLE ligne_commande ADD CONSTRAINT FK_3170B74BF347EFB FOREIGN KEY (produit_id) REFERENCES products (id)');
+        $this->addSql('ALTER TABLE user CHANGE is_verified is_verified TINYINT(1) NOT NULL, CHANGE is_banned is_banned TINYINT(1) NOT NULL, CHANGE image image VARCHAR(255) NOT NULL');
     }
 
     public function down(Schema $schema): void
@@ -37,5 +38,6 @@ final class Version20230216191625 extends AbstractMigration
         $this->addSql('DROP TABLE commande');
         $this->addSql('DROP TABLE ligne_commande');
         $this->addSql('DROP TABLE products');
+        $this->addSql('ALTER TABLE user CHANGE is_verified is_verified TINYINT(1) DEFAULT NULL, CHANGE is_banned is_banned TINYINT(1) DEFAULT NULL, CHANGE image image VARCHAR(255) DEFAULT NULL');
     }
 }

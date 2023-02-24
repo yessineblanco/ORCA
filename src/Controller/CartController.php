@@ -39,15 +39,22 @@ class CartController extends AbstractController
         $id = $product->getId();
 
         if(!empty($panier[$id])){
+            if(($panier[$id] < 10)) {
             $panier[$id]++;
+            
+            $this->addFlash('success', 'Votre produit a été ajouté au panier');
+            }
+            else
+            {
+                $this->addFlash('warning', 'Vous avez atteint la limite de 10 produits pour ce produit');
+            }
         }else{
             $panier[$id] = 1;
+            $this->addFlash('success', 'Votre produit a été ajouté au panier');
         }
 
-        // On sauvegarde dans la session
+        
         $session->set("panier", $panier);
-        $this->addFlash('success', 'Votre produit a ete ajouter au panier');
-
         return $this->redirectToRoute("cart_index");
     }
     #[Route('/remove/{id}', name: 'remove')]

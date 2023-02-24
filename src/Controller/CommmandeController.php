@@ -67,7 +67,7 @@ class CommmandeController extends AbstractController
         $this->addFlash('success', 'Votre commande a ete valider veuillez consulter votre boite mail');
         return $this->redirectToRoute('home');
         }   
-        #[Route('/deletecommande/{id}', name: 'app_commande_delete', methods: ['POST'])]
+        #[Route('/deletecommande/{id}', name: 'app_commande_delete')]
          public function delete(Request $request, Commande $commande, LigneCommandeRepository $repository): Response
         {
         if ($this->isCsrfTokenValid('delete'.$commande->getId(), $request->request->get('_token'))) {
