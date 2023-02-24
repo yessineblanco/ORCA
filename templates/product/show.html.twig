@@ -10,27 +10,19 @@
         <tbody>
 
             <tr>
-                <th>ProductName</th>
+                <th>Product Name</th>
                 <td>{{ product.ProductName }}</td>
             </tr>
             <tr>
-                <th>ProductDescription</th>
+                <th>About</th>
                 <td>{{ product.ProductDescription }}</td>
             </tr>
             <tr>
-                <th>ProductPrice</th>
-                <td>{{ product.ProductPrice }}</td>
+                <th>Price</th>
+                <td>{{ product.ProductPrice }}TND</td>
             </tr>
+
             <tr>
-                <th>UpdateDate</th>
-                <td>{{ product.UpdateDate ? product.UpdateDate|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>ProductQuantity</th>
-                <td>{{ product.ProductQuantity }}</td>
-            </tr>
-            <tr>
-                <th>Product Image</th>
                 <td> <img height="400" width="400"  src="{{app.request.basepath}}/uploads/{{product.image}}" alt=""></td>
                 </td>
             </tr>
