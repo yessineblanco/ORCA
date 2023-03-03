@@ -15,14 +15,26 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Knp\Component\Pager\PaginatorInterface;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 class CommmandeController extends AbstractController
 {
     #[Route('/affichecommmande', name: 'affichecommmande')]
-    public function index(LigneCommandeRepository $repository): Response
+    public function index(LigneCommandeRepository $repository, PaginatorInterface $paginator, Request $request): Response
     {
+        $query = $this->getDoctrine()->getRepository(LigneCommande::class)->createQueryBuilder('u');
+
+        $pagination = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1),
+            2 // items per page
+        );
         return $this->render('commande/index.html.twig', [
             'commandes' => $repository->findAll(),
+            'pagination' => $pagination,
+
         ]);
 
     }
@@ -49,9 +61,9 @@ class CommmandeController extends AbstractController
         $order->setUser($currentuser);
         $order->setDateCommande(new \DateTime());
         $order->setMontantCommande($total);
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($order);
-        $entityManager->flush();
+        $entityManager = $this->getDoctrine()->getManager(); //orm = OBJECT RELATIONAL MAPPING 
+        $entityManager->persist($order); // allocation de memoire et envoie du requete vers bd 
+        $entityManager->flush(); // suppression de espace memoire allouee
         foreach ($dataPanier as $item) {
             $productOrder=new LigneCommande();
             $productOrder->setCommande($order);
@@ -66,15 +78,58 @@ class CommmandeController extends AbstractController
         $session->remove("panier");
         $this->addFlash('success', 'Votre commande a ete valider veuillez consulter votre boite mail');
         return $this->redirectToRoute('home');
-        }   
-        #[Route('/deletecommande/{id}', name: 'app_commande_delete')]
-         public function delete(Request $request, Commande $commande, LigneCommandeRepository $repository): Response
-        {
-        if ($this->isCsrfTokenValid('delete'.$commande->getId(), $request->request->get('_token'))) {
-            $userRepository->remove($commande, true);
+        }  
+
+        #[Route('/imprimer', name: 'imprimer')]
+        public function imprimer(LigneCommandeRepository $Repository)
+    {
+        //$commande=$commandeRepository->find($id);
+
+        // Configure Dompdf according to your needs
+        $pdfOptions = new Options();
+        $pdfOptions->set('defaultFont', 'Arial');
+
+        // Instantiate Dompdf with our options
+        $dompdf = new Dompdf($pdfOptions);
+        // Retrieve the HTML generated in our twig file
+        $html = $this->renderView('commande/imprime.html.twig', [
+            'commandes' => $Repository->findAll()
+        ]);
+
+        // Load HTML to Dompdf
+        $dompdf->loadHtml($html);
+
+        // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
+        $dompdf->setPaper('A4', 'portrait');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser (force download)
+        $dompdf->stream("myOrder.pdf", [
+            "Attachment" => false
+        ]);
+    }
+    #[Route('/stats', name: 'stats')]
+    public function statistiques(CommandeRepository  $commandeRepository){
+        // On va chercher toutes les catégories
+
+        $commande = $commandeRepository->countByDate();
+        $dates = [];
+        $commandeCount = [];
+        $categColor = [];
+        foreach($commande as $com){
+            $dates[] = $com['dateCommande'];
+            $commandeCount[] = $com['count'];
         }
 
-        return $this->redirectToRoute('affichecommmande', [], Response::HTTP_SEE_OTHER);
-         }
+
+        return $this->render('commande/stats.html.twig', [
+            'dates' => json_encode($dates),
+            'commandeCount' => json_encode($commandeCount),
+        ]);
+
+
+    }
         
 }
