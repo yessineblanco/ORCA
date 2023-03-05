@@ -13,10 +13,11 @@
             <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
             <!-- style css -->
             <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+            <link rel="stylesheet" href="{{ asset('style.css') }}">
             <!-- Responsive-->
             <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
             <!-- fevicon -->
-            <link rel="icon" href="{{ asset('images/fevicon.png') }}" type="image/gif" />
+            <link rel="icon" href="{{ asset('images/favicon.png') }}" type="image/gif" />
             <!-- Scrollbar Custom CSS -->
             <link rel="stylesheet" href="{{ asset('css/jquery.mCustomScrollbar.min.css')}}">
             <!-- Tweaks for older IEs-->
@@ -30,55 +31,108 @@
 
     </head>
     <body>
-    <div>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="logo"><a href={{ path('app_product_index') }}><img src="{{ asset('images/logo.png') }}"></a></div>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_product_index') }}">Product</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_category_index') }}">Category</a>
-                    </li>
-                    <!--
-                    <li class="nav-item">
-                        <a class="nav-link" href="health.html">Health</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="medicine.html">Medicine</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="news.html">News</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="client.html">Client</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="contact.html">Contact Us</a>
-                    </li>-->
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><img src="{{ asset('images/search-icon.png') }}"></a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </div>
-
-    {% block body %}
-
-
-
+    
+    <div class="header_section">
+    
+        {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+         </div>
+        {% endfor %}
+        {% for message in app.flashes('warning') %}
+        <div class="alert alert-warning">
+            {{ message }}
+         </div>
+        {% endfor %}
+    
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+         <div class="logo"><a href="/home"><img src="{{ asset('images/logo.png') }}"></a></div>
+         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+         </button>
+         <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+               <li class="nav-item active">
+                  <a class="nav-link" href="/home">Home</a>
+               </li>
+               {% if app.user %}
+               <li class="nav-item">
+                  <a class="nav-link" href="{{ path('profile', {'username': app.user.username})}}">Profile</a>
+               </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ path('store')}}">Store</a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link" href="/logout">Logout</a>
+               </li>
+                    {% if 'ROLE_ADMIN' in app.user.roles %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/back">AdminTAB</a>
+                        </li>
+                    {% endif %}
+               {% else %}
+               <li class="nav-item">
+                  <a class="nav-link" href="/login">Login</a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link" href="/register">Register</a>
+               </li>
+               {% endif %}
+               
+               <li class="nav-item">
+                  <a class="nav-link" href="#"><img src="{{ asset('images/search-icon.png') }}"></a>
+               </li>
+            </ul>
+         </div>
+      </nav>
+      <!-- header section end -->
+      <!-- banner section start -->
+      <div id="main_slider" class="carousel slide" data-ride="carousel">
+         <div class="carousel-inner">
+            <div class="carousel-item active">
+               <div class="banner_section">
+                  <div class="container">
+                  {% if app.user %}
+                        <div class="box_main active">
+                        <div class="icon_1"><img src="{{ asset('images/icon-3.png') }}"></div>
+                        <h4 class="daily_text_1">Welcome {{ app.user.username }} Enjoy Your Stay </h4>
+                        </div>
+                        {% endif %}
+                        
+                     <div class="row">
+                        <div class="col-md-6">
+                        
+                           {% block content %}
+                           {% endblock %}
+                            {% block home1 %}
         {% endblock %}
+         {% block body %}
+        {% endblock %}
+        {% block edit %}
+        {% endblock %}
+                        </div>
+                        <div class="col-md-6">
+                           <div class="image_1"><img src="{{ asset('images/img-1.png') }}"></div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            
+         </div>
+         
+      </div>
+   </div>
+    <div>
+        
+    </div>
+    
     <footer>
     <div class="footer_section layout_padding">
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-sm-6">
-                    <div class="footer_logo"><a href="index.html"><img src="{{ asset('images/footer-logo.png') }}"></a></div>
+                    <div class="footer_logo"><a href="/home"><img src="{{ asset('images/footer-logo.png') }}"></a></div>
                     <h1 class="adderss_text">Contact Us</h1>
                     <div class="map_icon"><img src="{{ asset('images/map-icon.png') }}"><span class="paddlin_left_0">Page when looking at its</span></div>
                     <div class="map_icon"><img src="{{ asset('images/call-icon.png') }}"><span class="paddlin_left_0">+7586656566</span></div>

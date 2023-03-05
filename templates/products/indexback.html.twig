@@ -1,0 +1,40 @@
+{% extends 'base_BACK.html.twig' %}
+    {% block body %}
+
+        <center><h1>Les Produits</h1></center>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Price</th>
+                <th>Image</th>
+                <th>action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for products in products %}
+                <tr>
+                    <td>{{ products.id}}</td>
+                    <td>{{ products.title  }}</td>
+                    <td>{{ products.price }}</td>
+                    <td>{{ products.image }}</td>
+                    <td><a href="{{ path('app_products_edit', {'id': products.id }) }}" class="nk-btn nk-btn-rounded nk-btn-color-white">
+                            <span>Edit</span>
+                            <span class="icon"><i class="ion-paper-airplane"></i></span>
+                    </a>
+                    </td>
+                </tr>
+                
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+         <a href="{{ path('app_products_new') }}" class="nk-btn nk-btn-rounded nk-btn-color-white">
+                            <span>Ajouter Produit</span>
+                            <span class="icon"><i class="ion-paper-airplane"></i></span>
+                    </a>      
+                            
+    {% endblock %}
+
