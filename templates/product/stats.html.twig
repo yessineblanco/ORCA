@@ -1,0 +1,19 @@
+{% extends 'base_BACK.html.twig' %}
+{% block body %}
+<div class="container">
+  <div class="app-content">
+    <div class="side-app">
+      <div class="page-header">
+        <h4 class="page-title">statistiques</h4>
+
+      </div>
+      <div id="div_chart"></div>
+
+      <script type="text/javascript" src="{{ asset('https://www.gstatic.com/charts/loader.js') }}"></script>
+      <script type="text/javascript">
+        {{ gc_draw(barchart, 'div_chart') }}
+      </script>
+    </div>
+  </div>
+</div>
+{% endblock %}
