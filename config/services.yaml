@@ -7,6 +7,9 @@ parameters:
     Images: '%kernel.project_dir%/public/images'
 
 services:
+    App\Security\EmailVerifier:
+        bind:
+            $emailSender: '%env(MAILER_FROM)%'
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
