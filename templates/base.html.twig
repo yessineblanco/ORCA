@@ -10,33 +10,47 @@
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
         {% block stylesheets %}
             <!-- bootstrap css -->
-            <link rel="stylesheet" href="{{ asset('FrontOffice/css/bootstrap.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
             <!-- style css -->
-            <!-- <link rel="stylesheet" href="{{ asset('FrontOffice/css/style.css') }}"> -->
+            <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+            <link rel="stylesheet" href="{{ asset('style.css') }}">
+            <link rel="stylesheet" href="{{ asset('cards.css') }}">
+
             <!-- Responsive-->
-            <link rel="stylesheet" href="{{ asset('FrontOffice/css/responsive.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
             <!-- fevicon -->
-            <link rel="icon" href="{{ asset('FrontOffice/images/favicon.png') }}" type="image/gif" />
+            <link rel="icon" href="{{ asset('images/favicon.png') }}" type="image/gif" />
             <!-- Scrollbar Custom CSS -->
-            <link rel="stylesheet" href="{{ asset('FrontOffice/css/jquery.mCustomScrollbar.min.css')}}">
+            <link rel="stylesheet" href="{{ asset('css/jquery.mCustomScrollbar.min.css')}}">
             <!-- Tweaks for older IEs-->
             <link rel="stylesheet" href="{{ asset('https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css') }}">
             <!-- owl stylesheets -->
-            <link rel="stylesheet" href="{{ asset('FrontOffice/css/jquery.mCustomScrollbar.min.css')}}">
-
-            <link rel="stylesheet" href="{{ asset('FrontOffice/css/owl.carousel.min.css') }}">
-            <link rel="stylesheet" href="{{ asset('FrontOffice/css/owl.theme.default.min.css') }}">
-            <link rel="stylesheet" href="{{ asset('FrontOffice/css/cards.css') }}">
-
+            <link rel="stylesheet" href="{{ asset('css/owl.carousel.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/owl.theme.default.min.css') }}">
             <link rel="stylesheet" href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css') }}" media="screen">
+            <link rel="stylesheet" type="text/css" href="{{ asset('bundles/starrating/css/rating.css') }}" />
+
         {% endblock %}
 
 
     </head>
     <body>
+    
     <div class="header_section">
-      <nav class="navbar navbarpfixed navbar-expand-lg navbar-light bg-light">
-         <div class="logo"><a href="/home"><img src="{{ asset('FrontOffice/images/logo.png') }}"></a></div>
+    
+        {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+         </div>
+        {% endfor %}
+        {% for message in app.flashes('warning') %}
+        <div class="alert alert-warning">
+            {{ message }}
+         </div>
+        {% endfor %}
+    
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+         <div class="logo"><a href="/home"><img src="{{ asset('images/logo.png') }}"></a></div>
          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
          </button>
@@ -49,6 +63,9 @@
                <li class="nav-item">
                   <a class="nav-link" href="{{ path('profile', {'username': app.user.username})}}">Profile</a>
                </li>
+                   <li class="nav-item">
+                       <a class="nav-link" href="{{ path('store')}}">Store</a>
+                   </li>
                <li class="nav-item">
                   <a class="nav-link" href="/logout">Logout</a>
                </li>
@@ -64,13 +81,10 @@
                <li class="nav-item">
                   <a class="nav-link" href="/register">Register</a>
                </li>
-                   <li class="nav-item">
-                       <a class="nav-link" href="/product">Product</a>
-                   </li>
                {% endif %}
                
                <li class="nav-item">
-                  <a class="nav-link" href="#"><img src="{{ asset('FrontOffice/images/search-icon.png') }}"></a>
+                  <a class="nav-link" href="#"><img src="{{ asset('images/search-icon.png') }}"></a>
                </li>
             </ul>
          </div>
@@ -82,42 +96,40 @@
             <div class="carousel-item active">
                <div class="banner_section">
                   <div class="container">
-                  {% if app.user %}
-                        <div class="box_main active">
-                        <div class="icon_1"><img src="{{ asset('FrontOffice/images/icon-3.png') }}"></div>
-                        <h4 class="daily_text_1">Welcome {{ app.user.username }} Enjoy Your Stay </h4>
-                        </div>
-                        {% endif %}
-                     <div class="row">
-                         <div class="col-md-6">
-                             <h1 class="banner_taital">Health <br><span style="color: #151515;">Care</span></h1>
-                             <p class="banner_text">There are many variations of passages of Lorem Ipsum</p>
-                             <div class="btn_main">
-                                 <div class="more_bt"><a href="#">Contact Now</a></div>
-                                 <div class="contact_bt"><a href="#">Get A Quote</a></div>
-                             </div>
-                         </div>
-                         <div class="col-md-6">
-                             <div class="image_1"><img src="{{ asset('FrontOffice/images/img-1.png') }}"></div>
-                         </div>
-                     </div>
-                            {% block home1 %}
-        {% endblock %}
-         {% block body %}
-        {% endblock %}
-        {% block edit %}
-        {% endblock %}
+                      {% if app.user %}
+                            <div class="box_main active">
+                            <div class="icon_1"><img src="{{ asset('images/icon-3.png') }}"></div>
+                            <h4 class="daily_text_1">Welcome {{ app.user.username }} Enjoy Your Stay </h4>
+                            </div>
+                            {% endif %}
 
+                     <div class="row">
+                        <div class="col-md-6">
+
+                           {% block content %}
+                           {% endblock %}
+                            {% block home1 %}
+                            {% endblock %}
+
+                            {% block edit %}
+                            {% endblock %}
+                        </div>
+                        <div class="col-md-6">
+                           <div class="image_1"><img src="{{ asset('images/img-1.png') }}"></div>
+                        </div>
+                     </div>
                   </div>
                </div>
             </div>
-            
+
          </div>
-         
+
       </div>
+        {% block body %}
+        {% endblock %}
    </div>
     <div>
-        
+
     </div>
     
     <footer>
@@ -127,9 +139,9 @@
                 <div class="col-lg-3 col-sm-6">
                     <div class="footer_logo"><a href="/home"><img src="{{ asset('images/footer-logo.png') }}"></a></div>
                     <h1 class="adderss_text">Contact Us</h1>
-                    <div class="map_icon"><img src="{{ asset('FrontOffice/images/map-icon.png') }}"><span class="paddlin_left_0">Page when looking at its</span></div>
-                    <div class="map_icon"><img src="{{ asset('FrontOffice/images/call-icon.png') }}"><span class="paddlin_left_0">+7586656566</span></div>
-                    <div class="map_icon"><img src="{{ asset('FrontOffice/images/mail-icon.png') }}"><span class="paddlin_left_0">volim@gmail.com</span></div>
+                    <div class="map_icon"><img src="{{ asset('images/map-icon.png') }}"><span class="paddlin_left_0">Page when looking at its</span></div>
+                    <div class="map_icon"><img src="{{ asset('images/call-icon.png') }}"><span class="paddlin_left_0">+7586656566</span></div>
+                    <div class="map_icon"><img src="{{ asset('images/mail-icon.png') }}"><span class="paddlin_left_0">volim@gmail.com</span></div>
                 </div>
                 <div class="col-lg-3 col-sm-6">
                     <h1 class="adderss_text">Doctors</h1>
@@ -145,10 +157,10 @@
                     <div class="subscribe_bt"><a href="#">Subscribe</a></div>
                     <div class="social_icon">
                         <ul>
-                            <li><a href="#"><img src="{{ asset('FrontOffice/images/fb-icon.png') }}"></a></li>
-                            <li><a href="#"><img src="{{ asset('FrontOffice/images/twitter-icon.png') }}"></a></li>
-                            <li><a href="#"><img src="{{ asset('FrontOffice/images/linkedin-icon.png') }}"></a></li>
-                            <li><a href="#"><img src="{{ asset('FrontOffice/images/instagram-icon.png') }}"></a></li>
+                            <li><a href="#"><img src="{{ asset('images/fb-icon.png') }}"></a></li>
+                            <li><a href="#"><img src="{{ asset('images/twitter-icon.png') }}"></a></li>
+                            <li><a href="#"><img src="{{ asset('images/linkedin-icon.png') }}"></a></li>
+                            <li><a href="#"><img src="{{ asset('images/instagram-icon.png') }}"></a></li>
                         </ul>
                     </div>
                 </div>
@@ -160,17 +172,18 @@
 
         {% block javascripts %}
             <!-- Javascript files-->
-            <script src="{{ asset('FrontOffice/js/jquery.min.js') }}"></script>
-            <script src="{{ asset('FrontOffice/js/popper.min.js') }}"></script>
-            <script src="{{ asset('FrontOffice/js/bootstrap.bundle.min.js') }}"></script>
-            <script src="{{ asset('FrontOffice/js/jquery-3.0.0.min.js') }}"></script>
-            <script src="{{ asset('FrontOffice/js/plugin.js') }}"></script>
+            <script src="{{ asset('js/jquery.min.js') }}"></script>
+            <script src="{{ asset('js/popper.min.js') }}"></script>
+            <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+            <script src="{{ asset('js/jquery-3.0.0.min.js') }}"></script>
+            <script src="{{ asset('js/plugin.js') }}"></script>
             <!-- sidebar -->
-            <script src="{{ asset('FrontOffice/js/jquery.mCustomScrollbar.concat.min.js') }}"></script>
-            <script src="{{ asset('FrontOffice/js/custom.js') }}"></script>
+            <script src="{{ asset('js/jquery.mCustomScrollbar.concat.min.js') }}"></script>
+            <script src="{{ asset('js/custom.js') }}"></script>
             <!-- javascript -->
-            <script src="{{ asset('FrontOffice/js/owl.carousel.js') }}"></script>
+            <script src="{{ asset('js/owl.carousel.js') }}"></script>
             <script src="{{ asset('https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js') }}"></script>
+            <script src="{{ asset('bundles/starrating/js/rating.js') }}"></script>
         {% endblock %}
     </body>
 </html>

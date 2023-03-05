@@ -55,6 +55,14 @@ class Product
     */
     private ?float $ProductPrice = null;
 
+    #[ORM\Column]
+    #[Assert\NotBlank()]
+    #[Assert\Positive()]
+    /**
+     *  @Groups({"post:read"})
+     */
+    private ?int $ProductView = null;
+
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     /**
     *  @Groups({"post:read"})
@@ -76,11 +84,21 @@ class Product
     */
     private ?String $image;
 
+    #[ORM\OneToMany(mappedBy: 'produit', targetEntity: LigneCommande::class)]
+    private Collection $ligneCommandes;
+    public function __construct()
+    {
+        $this->ligneCommandes = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
     }
-
+    public function getProductView(): ?int
+    {
+        return $this->ProductView;
+    }
     public function getProductName(): ?string
     {
         return $this->ProductName;
@@ -128,6 +146,12 @@ class Product
 
         return $this;
     }
+    public function setProductView(float $ProductView): self
+    {
+        $this->ProductView = $ProductView;
+
+        return $this;
+    }
 
     public function getUpdateDate(): ?\DateTimeInterface
     {
@@ -166,5 +190,34 @@ class Product
     public function setImage(?string $image): void
     {
         $this->image = $image;
+    }
+    /**
+     * @return Collection<int, LigneCommande>
+     */
+    public function getLigneCommandes(): Collection
+    {
+        return $this->ligneCommandes;
+    }
+
+    public function addLigneCommande(LigneCommande $ligneCommande): self
+    {
+        if (!$this->ligneCommandes->contains($ligneCommande)) {
+            $this->ligneCommandes->add($ligneCommande);
+            $ligneCommande->setProduit($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLigneCommande(LigneCommande $ligneCommande): self
+    {
+        if ($this->ligneCommandes->removeElement($ligneCommande)) {
+            // set the owning side to null (unless already changed)
+            if ($ligneCommande->getProduit() === $this) {
+                $ligneCommande->setProduit(null);
+            }
+        }
+
+        return $this;
     }
 }

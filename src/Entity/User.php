@@ -30,10 +30,10 @@ class User implements UserInterface
     private ?string $password ;
 
     #[ORM\Column]
-    private ?bool $isVerified = null;
+    private ?bool $isVerified = True;
 
     #[ORM\Column]
-    private ?bool $isBanned = null;
+    private ?bool $isBanned = False;
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank (message:"Please enter your username")]
@@ -49,7 +49,7 @@ class User implements UserInterface
     private ?\DateTimeInterface $naissance = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $image = null;
+    private ?string $image ='';
 
     public function __construct()
     {

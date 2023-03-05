@@ -254,7 +254,7 @@
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               {#<img src="{{ asset ('BackOffice/AdminLTE-2.4.18/dist/img/user2-160x160.jpg')}}" class="user-image" alt="User Image">#}
-              <span class="hidden-xs">Yessine Blanco</span>
+              <span class="hidden-xs">Assil Maalel</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
@@ -262,7 +262,7 @@
                 {#<img src="{{ asset ('BackOffice/AdminLTE-2.4.18/dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">#}
 
                 <p>
-                  Yessine Blanco - Web Developer
+                  Assil Maalel - Web Developer
                   <small>Member since Nov. 2022</small>
                 </p>
               </li>
@@ -343,6 +343,17 @@
         </li>
         <li class="active treeview menu-open">
           <a href="#">
+            <i class="fa fa-dashboard"></i> <span>Dashboard Commande</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="/affichecommmande"><i class="fa fa-circle-o"></i> List Commande </a></li>
+          </ul>
+        </li>
+        <li class="active treeview menu-open">
+          <a href="#">
             <i class="fa fa-dashboard"></i> <span>Category Managment </span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -360,12 +371,10 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="/product/back"><i class="fa fa-circle-o"></i>  Product List</a></li>
+            <li><a href="{{ path('app_product_index_back')}}"><i class="fa fa-circle-o"></i>  Product List</a></li>
           </ul>
         </li>
-
       </ul>
-
     </section>
     <!-- /.sidebar -->
   </aside>

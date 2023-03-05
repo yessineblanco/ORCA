@@ -23,13 +23,20 @@
                 <div class="control">
                     <button class="btn">
                         <span class="price">{{ product.ProductPrice }}TND</span>
-                        <span class=""> <a href="{{ path('app_product_show', {'id': product.id}) }}">Get now </a> </span>
+                        <span class=""> <a href="{{ path('add_product_to_cart', {'id': product.id}) }}">Get now </a> </span>
                     </button>
+                    <br>
+                    <hr/>
+                    <button class="btn">
+                        <span class=""> <a href="{{ path('app_product_show', {'id': product.id}) }}">Show Details</a> </span>
+                    </button>
+
                 </div>
+
             </div>
 
             <div class="product-image">
-                <img height="400" width="400"  src="{{app.request.basepath}}/uploads/{{product.image}}" alt="">
+                <img height="400" width="200"  src="{{app.request.basepath}}/uploads/{{product.image}}" alt="">
                 <div class="info">
                     <h2> Description</h2>
                     <ul>
@@ -41,9 +48,7 @@
 
             </div>
 
-            <div class="pagination-item">
-                <span>{{ knp_pagination_render(products) }}</span>
-            </div>
+
 
         {% else %}
             <tr>
@@ -51,6 +56,8 @@
             </tr>
 
         {% endfor %}
-
+    <div class="pagination-item">
+        <span>{{ knp_pagination_render(products) }}</span>
+    </div>
 
 {% endblock %}
