@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Product;
+use App\Entity\Category;
+
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
 use Dompdf\Dompdf;
@@ -13,6 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Doctrine\ORM\EntityManagerInterface;
 
 
 #[Route('/product')]
@@ -176,5 +179,75 @@ class ProductController extends AbstractController
         }
 
         return $this->redirectToRoute('app_product_index_back', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/api/produitAPI', name: 'display_prod_json')]
+
+    public function produitAPI(NormalizerInterface $normalizer): Response
+    {
+     
+        $em = $this->getDoctrine()->getManager()->getRepository(Product::class); // ENTITY MANAGER ELY FIH FONCTIONS PREDIFINES
+
+        $prods = $em->findAll(); // Select * from produits;
+        $jsonContent =$normalizer->normalize($prods, 'json' ,['groups'=>'post:read']);
+        return new Response(json_encode($jsonContent));
+    }
+    #[Route('/api/deleteProduitApi', name: 'display_prod_json')]
+
+    public function deleteProdApi(Request $request,NormalizerInterface $normalizer,$id): Response
+    {
+
+        $em = $this->getDoctrine()->getManager(); // ENTITY MANAGER ELY FIH FONCTIONS PREDIFINES
+
+        $prod = $this->getDoctrine()->getManager()->getRepository(Product::class)->find($id); // ENTITY MANAGER ELY FIH FONCTIONS PREDIFINES
+
+            $em->remove($prod);
+            $em->flush();
+            $jsonContent =$normalizer->normalize($prod, 'json' ,['groups'=>'post:read']);
+            return new Response("information deleted successfully".json_encode($jsonContent));
+    }
+    #[Route('/api/editProduitAPI/{id}', name: 'editProdJson')]
+
+       public function editProdAPI ($id,Request $request, Product $produit, EntityManagerInterface $entityManager , NormalizerInterface $normalizer ): Response
+    {   
+        $em = $this->getDoctrine()->getManager();
+        $produit = $em->getRepository(Product::class)->find($id);
+
+        $cat = $em->getRepository(Category::class)->find($request->get('cat'));
+        $produit->setProductName($request->get('ProductName'));
+        $produit->setProductPrice($request->get('ProductPrice'));
+        $produit->setProductDescription($request->get('ProductDescription'));
+        $produit->setProductQuantity($request->get('ProductQuantity'));
+        $produit->setCategory($cat);
+        $produit->setUpdateDate(new \DateTime());
+        $produit->setImage("img.png");
+        $entityManager->persist($produit);
+        $entityManager->flush();
+        $jsonContent =$normalizer->normalize($produit, 'json' ,['groups'=>'post:read']);
+        return new Response("information updated successfully". json_encode($jsonContent));
+
+    }
+    #[Route('/api/addProduitAPI', name: 'addproduitjson', methods: ['GET','POST'])]
+
+
+    public function addproduitjson(NormalizerInterface $Normalizer,Request $request,EntityManagerInterface $entityManager): Response
+    {
+        $produit = new Product();
+        $produit->setUpdateDate(new \DateTime());
+        $em = $this->getDoctrine()->getManager();
+        $cat = $em->getRepository(Category::class)->find($request->get('cat'));
+        $produit->setProductName($request->get('ProductName'));
+        $produit->setProductPrice($request->get('ProductPrice'));
+        $produit->setProductDescription($request->get('ProductDescription'));
+        $produit->setProductQuantity($request->get('ProductQuantity'));
+        $produit->setCategory($cat);
+        $produit->setImage("img.png");
+        $em->persist($produit);
+        $em->flush();
+            $jsonContent = $Normalizer->normalize($produit, 'json',['groups'=>'post:read']);
+            return new Response(json_encode($jsonContent));
+
+
+
     }
 }
