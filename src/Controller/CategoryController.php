@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Entity\Product;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -121,9 +122,7 @@ class CategoryController extends AbstractController
         return new Response("information updated successfully". json_encode($jsonContent));
 
     }
-         /**
-     * @Route("/api/deleteCatApi/{id}", name="delete_cat_json")
-     */
+    #[Route('/api/deleteCatApi/{id}', name: 'delete_cat_json',methods: ['POST'])]
     public function deleteCatApi(Request $request,NormalizerInterface $normalizer,$id): Response
     {
 
