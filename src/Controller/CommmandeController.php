@@ -86,7 +86,7 @@ class CommmandeController extends AbstractController
             $total += $product->getProductPrice() * $quantite;
         }
         $order=new Commande();
-        $user=$this->getUser()->getId();
+        $user=$this->getUser()->getUserIdentifier();
         $currentuser=$usrRep->findOneBy(array('id'=>$user));
         $order->setUser($currentuser);
         $order->setDateCommande(new \DateTime());
@@ -162,7 +162,7 @@ class CommmandeController extends AbstractController
         }
 
 
-        return $this->render('commande/stats.html.twig.twig', [
+        return $this->render('commande/stats.html.twig', [
             'dates' => json_encode($dates),
             'commandeCount' => json_encode($commandeCount),
         ]);

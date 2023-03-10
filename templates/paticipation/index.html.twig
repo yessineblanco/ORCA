@@ -1,0 +1,24 @@
+{% extends 'base_BACK.html.twig' %}
+
+{% block title %}Paticipations{% endblock %}
+
+{% block body %}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Evenement</th>
+                <th>Nom User</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for paticipation in paticipations %}
+            <tr>
+                <td>{{ paticipation.getIdEvent.nom }}</td>
+                <td>{{ paticipation.nomuser }}</td>
+            </tr>
+       {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

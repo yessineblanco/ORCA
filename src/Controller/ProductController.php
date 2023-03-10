@@ -23,7 +23,6 @@ use Doctrine\ORM\EntityManagerInterface;
 #[Route('/product')]
 class ProductController extends AbstractController
 {
-
     #[Route('/store', name: 'store', methods: ['GET'])]
     public function index(PaginatorInterface $paginator, ProductRepository $productRepository, Request $request): Response
     {
@@ -190,20 +189,18 @@ class ProductController extends AbstractController
         return $this->redirectToRoute('app_product_index_back', [], Response::HTTP_SEE_OTHER);
     }
 
-
-    #[Route('/api/produitAPI', name: 'display_prod_json', methods: ['GET', 'POST'])]
+    #[Route('/api/produitAPI', name: 'display_prod_json')]
     public function produitAPI(NormalizerInterface $normalizer): Response
     {
 
         $em = $this->getDoctrine()->getManager()->getRepository(Product::class); // ENTITY MANAGER ELY FIH FONCTIONS PREDIFINES
+
         $prods = $em->findAll(); // Select * from produits;
-        $jsonContent =$normalizer->normalize($prods, 'json' ,['groups'=>'post:read']);
+        $jsonContent = $normalizer->normalize($prods, 'json', ['groups' => 'post:read']);
         return new Response(json_encode($jsonContent));
     }
 
-
-
-    #[Route('/api/deleteProduitApi/{id}', name: 'deleteprodjson', methods: ['GET', 'POST'])]
+    #[Route('/api/deleteProduitApi', name: 'display_prod_json')]
     public function deleteProdApi(Request $request, NormalizerInterface $normalizer, $id): Response
     {
 
@@ -231,7 +228,6 @@ class ProductController extends AbstractController
         $produit->setCategory($cat);
         $produit->setUpdateDate(new \DateTime());
         $produit->setImage("img.png");
-        $produit->setProductView(0);
         $entityManager->persist($produit);
         $entityManager->flush();
         $jsonContent = $normalizer->normalize($produit, 'json', ['groups' => 'post:read']);
@@ -252,7 +248,6 @@ class ProductController extends AbstractController
         $produit->setProductQuantity($request->get('ProductQuantity'));
         $produit->setCategory($cat);
         $produit->setImage("img.png");
-        $produit->setProductView(0);
         $em->persist($produit);
         $em->flush();
         $jsonContent = $Normalizer->normalize($produit, 'json', ['groups' => 'post:read']);

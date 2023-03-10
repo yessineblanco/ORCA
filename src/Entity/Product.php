@@ -56,7 +56,7 @@ class Product
     private ?float $ProductPrice = null;
 
     #[ORM\Column]
-    #[Assert\NotBlank()]
+    
     #[Assert\Positive()]
     /**
      *  @Groups({"post:read"})

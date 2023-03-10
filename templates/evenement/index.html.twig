@@ -1,0 +1,45 @@
+{% extends 'base_BACK.html.twig' %}
+
+{% block title %}Evenement index{% endblock %}
+
+{% block body %}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Lieu</th>
+                <th>Details</th>
+                <th>Image</th>
+                <th>DataDebut</th>
+                <th>DateFin</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for evenement in pagination %}
+            <tr>
+                <td>{{ evenement.nom }}</td>
+                <td>{{ evenement.lieu }}</td>
+                <td>{{ evenement.details }}</td>
+                <td>  <img src="{{ asset('Upload/')}}{{ evenement.image }}" width="100" class="img-circle" /></td>
+                <td>{{ evenement.dataDebut ? evenement.dataDebut|date('Y-m-d') : '' }}</td>
+                <td>{{ evenement.dateFin ? evenement.dateFin|date('Y-m-d') : '' }}</td>
+                <td> <a href="{{ path('app_event_delete', {'id': evenement.id}) }}"><button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button></a>
+
+                    <a href="{{ path('app_evenement_edit',{'id':evenement.id}) }}"> <button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button></a>
+
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {{ knp_pagination_render(pagination)}}
+    <a href="/stats">Statistiques</a>
+    <a href="{{ path('app_evenement_new') }}">Create new</a>
+
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Paticipation{% endblock %}
+
+{% block body %}
+    <h1>Edit Paticipation</h1>
+
+    {{ include('paticipation/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_paticipation_index') }}">back to list</a>
+
+    {{ include('paticipation/_delete_form.html.twig') }}
+{% endblock %}
