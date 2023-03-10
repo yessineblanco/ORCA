@@ -14,6 +14,8 @@
             <!-- style css -->
             <link rel="stylesheet" href="{{ asset('css/style.css') }}">
             <link rel="stylesheet" href="{{ asset('style.css') }}">
+            <link rel="stylesheet" href="{{ asset('cards.css') }}">
+
             <!-- Responsive-->
             <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
             <!-- fevicon -->
@@ -26,6 +28,8 @@
             <link rel="stylesheet" href="{{ asset('css/owl.carousel.min.css') }}">
             <link rel="stylesheet" href="{{ asset('css/owl.theme.default.min.css') }}">
             <link rel="stylesheet" href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css') }}" media="screen">
+            <link rel="stylesheet" type="text/css" href="{{ asset('bundles/starrating/css/rating.css') }}" />
+
         {% endblock %}
 
 
@@ -59,9 +63,9 @@
                <li class="nav-item">
                   <a class="nav-link" href="{{ path('profile', {'username': app.user.username})}}">Profile</a>
                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="{{ path('store')}}">Store</a>
-               </li>
+                   <li class="nav-item">
+                       <a class="nav-link" href="{{ path('store')}}">Store</a>
+                   </li>
                <li class="nav-item">
                   <a class="nav-link" href="/logout">Logout</a>
                </li>
@@ -78,6 +82,9 @@
                   <a class="nav-link" href="/register">Register</a>
                </li>
                {% endif %}
+               <li class="nav-item">
+                  <a class="nav-link" href="/evenement/front">Evenement</a>
+               </li>
                
                <li class="nav-item">
                   <a class="nav-link" href="#"><img src="{{ asset('images/search-icon.png') }}"></a>
@@ -92,23 +99,24 @@
             <div class="carousel-item active">
                <div class="banner_section">
                   <div class="container">
-                  {% if app.user %}
-                        <div class="box_main active">
-                        <div class="icon_1"><img src="{{ asset('images/icon-3.png') }}"></div>
-                        <h4 class="daily_text_1">Welcome {{ app.user.username }} Enjoy Your Stay </h4>
-                        </div>
-                        {% endif %}
-                        
+                      {% if app.user %}
+                            <div class="box_main active">
+                            <div class="icon_1"><img src="{{ asset('images/icon-3.png') }}"></div>
+                            <h4 class="daily_text_1">Welcome {{ app.user.username }} Enjoy Your Stay </h4>
+                            </div>
+                            {% endif %}
+
                      <div class="row">
                         <div class="col-md-6">
-                        
+
                            {% block content %}
                            {% endblock %}
                             {% block home1 %}
-        {% endblock %}
-         {% block body %}
-        {% endblock %}
-        {% block edit %}
+                            {% endblock %}
+
+                            {% block edit %}
+                            {% endblock %}
+                            {% block body %}
         {% endblock %}
                         </div>
                         <div class="col-md-6">
@@ -118,13 +126,14 @@
                   </div>
                </div>
             </div>
-            
+
          </div>
-         
+
       </div>
+        
    </div>
     <div>
-        
+
     </div>
     
     <footer>
@@ -178,6 +187,7 @@
             <!-- javascript -->
             <script src="{{ asset('js/owl.carousel.js') }}"></script>
             <script src="{{ asset('https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js') }}"></script>
+            <script src="{{ asset('bundles/starrating/js/rating.js') }}"></script>
         {% endblock %}
     </body>
 </html>

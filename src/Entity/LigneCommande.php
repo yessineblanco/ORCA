@@ -23,7 +23,7 @@ class LigneCommande
     private ?float $Price = null;
 
     #[ORM\ManyToOne(inversedBy: 'ligneCommandes')]
-    private ?Products $produit = null;
+    private ?Product $produit = null;
 
     public function getId(): ?int
     {
@@ -66,12 +66,12 @@ class LigneCommande
         return $this;
     }
 
-    public function getProduit(): ?Products
+    public function getProduit(): ?Product
     {
         return $this->produit;
     }
 
-    public function setProduit(?Products $produit): self
+    public function setProduit(?Product $produit): self
     {
         $this->produit = $produit;
 

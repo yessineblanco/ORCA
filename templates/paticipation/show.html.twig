@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Paticipation{% endblock %}
+
+{% block body %}
+    <h1>Paticipation</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ paticipation.id }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_paticipation_index') }}">back to list</a>
+
+    <a href="{{ path('app_paticipation_edit', {'id': paticipation.id}) }}">edit</a>
+
+    {{ include('paticipation/_delete_form.html.twig') }}
+{% endblock %}

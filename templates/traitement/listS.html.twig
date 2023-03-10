@@ -1,0 +1,59 @@
+{% extends 'baseAjax.html.twig' %}
+ {% block body %}
+ <table border ="1">
+ 
+ <tr>
+ <th>id</th>
+ <th>Nom traitement</th>
+ <th>Type traitement</th>
+ <th>date debut</th>
+ <th>date fin</th>
+ <th>Description</th>
+ <th>Maladie</th>
+
+ <th>Supprimer</th>
+ <th>Modifier</th>
+
+ </tr>
+ <tbody id="tabletable1T">
+ {% for s in traitement %}
+ <tr>  
+ 
+
+ <td> {{s.id}}  </td>
+ <td> {{s.NomTraitement}}  </td>
+ <td> {{s.TypeTraitement}}  </td>
+ <td> {{s.DateDebutTraitement|date("Y-m-d")}} </td>
+ <td> {{s.DateFinTraitement|date("Y-m-d")}} </td>
+ <td> {{s.Description}} </td>
+ <td> {{s.Maladie.NomMaladie}} </td>
+
+ <td><a href="{{path('ss',{'id':s.id} )}}"><button type="button" class="btn btn-danger rounded-pill">Supprimer</button></a></td>  
+ <td><a href="{{path('up',{'id':s.id} )}}"><button type="button" class="btn btn-primary rounded-pill">Modifier</button></a></td>
+
+ </tr>
+ {% endfor %}
+ </tbody>
+
+ <form class="w_search">
+            <div class="sidebar-search">
+                <div class="input-group custom-search-form">
+                    <input type="text" id="searchsearch1T" name="searchsearch" class="form-control" placeholder="Rchercher"  title="Rechercher par Nom/Type de traitement">
+                </div>
+                <!-- /input-group --></div></form>
+
+
+  </table>
+
+    <a href="{{path('listcategorieNom')}}"<button type="button" class="btn btn-warning">trier traitememnt par Nom</button>
+        <a href="{{path('listcategorieType')}}"<button type="button" class="btn btn-warning">trier traitememnt par Type</button>
+
+
+ <a href="{{path('as')}}"<button type="button" class="btn btn-warning">Ajouter traitement</button></a>
+     <a href="{{path('list_Maladie')}}"<button type="button" class="btn btn-info">Liste maladies</button></a>
+
+   </div>
+    </div>
+
+ {% endblock %}
+

@@ -1,0 +1,18 @@
+{% for maladies in maladies %}
+
+    <tr>
+        <td>{{ maladies.id }}</td>
+        <td>{{ maladies.NomMaladie }}</td>
+        <td>{{ maladies.TypeMaladie }}</td>
+        <td>{{ maladies.Symptoms }}</td>
+        
+        <td>
+            <a href="{{ path('s', {'id': maladies.id}) }}">Supprimer</a>
+            <a href="{{ path('u', {'id': maladies.id}) }}">Modifier</a>
+        </td>
+    </tr>
+{% else %}
+    <tr>
+        <td colspan="6">no records found</td>
+    </tr>
+{% endfor %}

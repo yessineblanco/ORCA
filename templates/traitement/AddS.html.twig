@@ -1,0 +1,91 @@
+{% extends 'baseAjax.html.twig' %}
+
+{% block title %}Ajouter traitement{% endblock %}
+
+{% block body %}
+
+<div style="display: flex;align-items: center;justify-content: center;margin-top :150px">
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Ajouter traitement :</h5>
+
+              <!-- General Form Elements -->
+
+                
+
+              {{ form_start(form2,{'attr':{'novalidate': 'novalidate'}}) }}
+                <div class="row mb-3">
+                  <label for="inputText" class="col-sm-7 col-form-label">Nom traitement :</label>
+                  <div class="col-sm-10">
+              {{ form_widget(form2.NomTraitement,{'attr': {'class':'form-control'}}) }}
+              {{ form_errors(form2.NomTraitement,{'attr': {'class':'text-danger'}}) }}
+
+                  </div>
+                </div>
+
+                 {{ form_start(form2,{'attr':{'novalidate': 'novalidate'}}) }}
+                <div class="row mb-3">
+                  <label for="inputText" class="col-sm-7 col-form-label">Type traitement :</label>
+                  <div class="col-sm-10">
+              {{ form_widget(form2.TypeTraitement,{'attr': {'class':'form-control'}}) }}
+              {{ form_errors(form2.TypeTraitement,{'attr': {'class':'text-danger'}}) }}
+
+                  </div>
+                </div>
+
+                      {{ form_start(form2) }}
+                <div class="row mb-3">
+                  <label for="inputText" class="col-sm-7 col-form-label">Date début du traitement :</label>
+                  <div class="col-sm-10">
+              {{ form_widget(form2.DateDebutTraitement,{'attr': {'class':'form-control'}}) }}
+
+                  </div>
+                </div>
+                       {{ form_start(form2) }}
+                <div class="row mb-3">
+                  <label for="inputText" class="col-sm-7 col-form-label">Date fin du traitement :</label>
+                  <div class="col-sm-10">
+              {{ form_widget(form2.DateFinTraitement,{'attr': {'class':'form-control'}}) }}
+
+                  </div>
+                </div>
+
+               
+
+            
+
+
+              {{ form_start(form2,{'attr':{'novalidate': 'novalidate'}}) }}
+                <div class="row mb-3">
+                  <label for="inputText" class="col-sm-7 col-form-label">description </label>
+                  <div class="col-sm-10">
+              {{ form_widget(form2.Description,{'attr': {'class':'form-control'}}) }}
+              {{ form_errors(form2.Description,{'attr': {'class':'text-danger'}}) }}
+          
+
+                  
+                  </div>
+                </div>
+
+       {{ form_start(form2) }}
+                <div class="row mb-3">
+                  <label for="inputText" class="col-sm-7 col-form-label">maladie</label>
+                  <div class="col-sm-10">
+              {{ form_widget(form2.maladie,{'attr': {'class':'form-control'}}) }}
+                  </div>
+                </div>
+
+
+              
+                  {{ form_start(form2) }}
+
+                  <div class="col-sm-10">
+                {{ form_widget(form2.Ajouter,{'attr': {'class':'<button type="button" class="btn btn-success rounded-pill">Success</button>'}}) }}
+                  </div>
+                </div> 
+
+                {{form_end(form2) }}
+
+
+                                {% endblock %}

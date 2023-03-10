@@ -1,0 +1,57 @@
+{% extends 'base_BACK.html.twig' %}
+
+{% block title %}New Evenement{% endblock %}
+
+{% block body %}
+            {{ form_start(form, {'attr': {'id': 'form'}}) }}
+<form class="form-horizontal style-form">
+                <div class="form-group">
+                    <label class="col-sm-2 col-sm-2 control-label">Nom</label>
+                    <div class="col-sm-10">
+                        {{ form_widget(form.nom, { 'attr': {'class': 'form-control'} }) }}
+                        {{ form_errors(form.nom) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 col-sm-2 control-label">Lieu</label>
+                    <div class="col-sm-10">
+                        {{ form_widget(form.lieu, { 'attr': {'class': 'form-control'} }) }}
+                        {{ form_errors(form.lieu) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 col-sm-2 control-label">Details</label>
+
+                    <div class="col-sm-10">
+                        {{ form_widget(form.details, { 'attr': {'class': 'form-control'} }) }}
+                        {{ form_errors(form.details) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 col-sm-2 control-label">DataDebut</label>
+                    <div class="col-sm-10">
+                        {{ form_widget(form.dataDebut, { 'attr': {'class': 'form-control'} }) }}
+                        {{ form_errors(form.dataDebut) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 col-sm-2 control-label">DataFin</label>
+                    <div class="col-lg-10">
+                        {{  form_errors(form.dateFin) }}
+                        {{ form_widget(form.dateFin, { 'attr': {'class': 'form-control'} }) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 col-sm-2 control-label">Image</label>
+                    <div class="col-lg-10">
+                        {{ form_widget(form.file, { 'attr': {'class': 'form-control'} }) }}
+                        {{ form_errors(form.file) }}<br><br><br><br>
+                    </div>
+                </div>
+    <div style="text-align: center !important;">
+        <br><br>
+            <input type="submit" value="Enregistrer" class="btn btn-success"  formnovalidate/>
+            {{ form_end(form)  }}
+    </div>
+</form>
+{% endblock %}

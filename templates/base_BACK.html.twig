@@ -354,13 +354,49 @@
         </li>
         <li class="active treeview menu-open">
           <a href="#">
-            <i class="fa fa-dashboard"></i> <span>Dashboard Produit</span>
+            <i class="fa fa-dashboard"></i> <span>Category Managment </span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="/products"><i class="fa fa-circle-o"></i> List Produit </a></li>
+            <li><a href="/category"><i class="fa fa-circle-o"></i>  Category List </a></li>
+          </ul>
+        </li>
+        <li class="active treeview menu-open">
+          <a href="#">
+            <i class="fa fa-dashboard"></i> <span>Product Managment</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{{ path('app_product_index_back')}}"><i class="fa fa-circle-o"></i>  Product List</a></li>
+          </ul>
+        </li>
+        <li class="active treeview menu-open">
+          <a href="#">
+            <i class="fa fa-dashboard"></i> <span>Evenement Managment</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{{ path('app_evenement_index')}}"><i class="fa fa-circle-o"></i>  list Evenement </a></li>
+          </ul>
+          <ul class="treeview-menu">
+            <li><a href="{{ path('app_paticipation_index')}}"><i class="fa fa-circle-o"></i>  list Participation</a></li>
+          </ul>
+        </li>
+        <li class="active treeview menu-open">
+          <a href="#">
+            <i class="fa fa-dashboard"></i> <span>Maladie Managment</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{{ path('list_Maladie')}}"><i class="fa fa-circle-o"></i>  list Maladie </a></li>
           </ul>
           <li class="active"><a href="/home"><i class="fa fa-link"></i> <span>Return to the homepage</span></a></li>
         </li>

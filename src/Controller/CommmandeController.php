@@ -3,13 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Commande;
+use App\Repository\ProductRepository;
 use App\Security\EmailVerifier;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mime\Address;
 use App\Entity\LigneCommande;
 use App\Repository\CommandeRepository;
 use App\Repository\LigneCommandeRepository;
-use App\Repository\ProductsRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -69,7 +69,7 @@ class CommmandeController extends AbstractController
 
     }
     #[Route('/commande', name: 'commande')]
-    public function ValidCom(UserRepository $usrRep,SessionInterface $session, ProductsRepository $productRepository, AuthenticationUtils $authenticationUtils, \Swift_Mailer $mailer): Response
+    public function ValidCom(UserRepository $usrRep,SessionInterface $session, ProductRepository $productRepository, AuthenticationUtils $authenticationUtils, \Swift_Mailer $mailer): Response
     {
         $panier = $session->get("panier", []);
 
@@ -83,10 +83,10 @@ class CommmandeController extends AbstractController
                 "produit" => $product,
                 "quantite" => $quantite
             ];
-            $total += $product->getPrice() * $quantite;
+            $total += $product->getProductPrice() * $quantite;
         }
         $order=new Commande();
-        $user=$this->getUser()->getId();
+        $user=$this->getUser()->getUserIdentifier();
         $currentuser=$usrRep->findOneBy(array('id'=>$user));
         $order->setUser($currentuser);
         $order->setDateCommande(new \DateTime());
@@ -98,7 +98,7 @@ class CommmandeController extends AbstractController
             $productOrder=new LigneCommande();
             $productOrder->setCommande($order);
             $productOrder->setQuantite($item['quantite']);
-            $productOrder->setPrice($productRepository->find($item['produit']->getId())->getPrice()*$item['quantite']);
+            $productOrder->setPrice($productRepository->find($item['produit']->getId())->getProductPrice()*$item['quantite']);
             $productOrder->setProduit($productRepository->find($item['produit']->getId()));
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($productOrder);

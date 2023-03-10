@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Product{% endblock %}
+
+{% block body %}
+    <div class="container">
+    <h1>Product</h1>
+
+    <table class="table">
+        <tbody>
+
+            <tr>
+                <th class="text-black-50">Product Name</th>
+                <td class="text-black-50">{{ product.ProductName }}</td>
+            </tr>
+            <tr>
+                <th>About</th>
+                <td>{{ product.ProductDescription }}</td>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <td>{{ product.ProductPrice }}TND</td>
+            </tr>
+
+            <tr>
+                <td> <img height="400" width="400"  src="{{app.request.basepath}}/uploads/{{product.image}}" alt=""></td>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('store') }}">back to list</a>
+
+
+    </div>
+{% endblock %}

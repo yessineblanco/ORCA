@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Products;
-use App\Repository\ProductsRepository;
+use App\Entity\Product;
+use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class CartController extends AbstractController
 {
     #[Route('/', name: 'index')]
-    public function index(SessionInterface $session, ProductsRepository $productsRepository)
+    public function index(SessionInterface $session, ProductRepository $productsRepository)
     {
         $panier = $session->get("panier", []);
 
@@ -26,27 +26,27 @@ class CartController extends AbstractController
                 "produit" => $product,
                 "quantite" => $quantite
             ];
-            $total += $product->getPrice() * $quantite;
+            $total += $product->getProductPrice() * $quantite;
         }
 
         return $this->render('cart/index.html.twig', compact("dataPanier", "total"));
     }
     #[Route('/add/{id}', name: 'add')]
-    public function add(Products $product, SessionInterface $session)
+    public function add(Product $product, SessionInterface $session)
     {
         // On récupère le panier actuel
         $panier = $session->get("panier", []);
         $id = $product->getId();
 
         if(!empty($panier[$id])){
-            if(($panier[$id] < 10)) {
+            if(($panier[$id] < 5)) {
             $panier[$id]++;
             
             $this->addFlash('success', 'Votre produit a été ajouté au panier');
             }
             else
             {
-                $this->addFlash('warning', 'Vous avez atteint la limite de 10 produits pour ce produit');
+                $this->addFlash('warning', 'Vous avez atteint la limite de 5 produits pour ce produit');
             }
         }else{
             $panier[$id] = 1;
@@ -58,7 +58,7 @@ class CartController extends AbstractController
         return $this->redirectToRoute("cart_index");
     }
     #[Route('/remove/{id}', name: 'remove')]
-    public function remove(Products $product, SessionInterface $session)
+    public function remove(Product $product, SessionInterface $session)
     {
         // On récupère le panier actuel
         $panier = $session->get("panier", []);
@@ -79,7 +79,7 @@ class CartController extends AbstractController
         return $this->redirectToRoute("cart_index");
     }
     #[Route('/delete/{id}', name: 'delete')]
-    public function delete(Products $product, SessionInterface $session)
+    public function delete(Product $product, SessionInterface $session)
     {
         // On récupère le panier actuel
         $panier = $session->get("panier", []);

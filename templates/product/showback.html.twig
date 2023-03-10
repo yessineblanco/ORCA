@@ -1,0 +1,48 @@
+{% extends 'base_BACK.html.twig' %}
+
+{% block title %}Product{% endblock %}
+
+{% block body %}
+    <div class="container">
+    <h1>Product</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ product.id }}</td>
+            </tr>
+            <tr>
+                <th>ProductName</th>
+                <td>{{ product.ProductName }}</td>
+            </tr>
+            <tr>
+                <th>ProductDescription</th>
+                <td>{{ product.ProductDescription }}</td>
+            </tr>
+            <tr>
+                <th>ProductPrice</th>
+                <td>{{ product.ProductPrice }}</td>
+            </tr>
+            <tr>
+                <th>UpdateDate</th>
+                <td>{{ product.UpdateDate ? product.UpdateDate|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>ProductQuantity</th>
+                <td>{{ product.ProductQuantity }}</td>
+            </tr>
+            <tr>
+                <th>Product Image</th>
+                <td> <img height="400" width="400"  src="{{app.request.basepath}}/uploads/{{product.image}}" alt=""></td>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_product_index_back') }}">back to list</a>
+
+
+    {{ include('product/_delete_form.html.twig') }}
+    </div>
+{% endblock %}

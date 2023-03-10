@@ -1,0 +1,72 @@
+{% extends 'baseAjax.html.twig' %}
+ {% block body %}
+
+ 
+ <div class="row" style="display: flex;align-items: center;justify-content: center;margin-top :150px">
+ <div class="col-lg-6">
+ <div class="card-body">
+ <div class="card-body">
+
+
+     {{ knp_pagination_render(pagination, 'knp_pagination/pagination.html.twig') }}
+
+ <h5 class="my-headline"> Liste des maladies </h5>
+
+
+
+ <table class="table table-striped">
+ <thead>
+ <table border ="1">
+ <tr>
+ <th>id</th>
+ <th>Nom Maladie</th>
+ <th>Type Maladie</th>
+ <th>Symptomes</th>
+
+ <th>Supprimer</th>
+ <th>Modifier</th>
+
+ </tr>
+  <tbody id="tabletable1">
+
+ {% for c in pagination %}
+    <tr>
+        <td> {{ c.id }} </td>
+        <td> {{ c.NomMaladie }} </td>
+        <td> {{ c.TypeMaladie }} </td>
+        <td> {{ c.Symptoms }} </td>
+        
+ <td><a href="{{path('s',{'id':c.id} )}}"><button type="button" class="btn btn-danger rounded-pill" onclick="return confirm('Vous étes sur de supprimer cette maladie?')">Supprimer</button></a></td>  
+  <td><a href="{{path('u',{'id':c.id} )}}"><button type="button" class="btn btn-dark rounded-pill">Modifier</button> </a></td> 
+ </tr>
+ {% endfor %}
+</tbody>
+
+
+
+<form class="w_search">
+            <div class="sidebar-search">
+                <div class="input-group custom-search-form">
+                    <input type="text" id="searchsearch1" name="searchsearch" class="form-control" placeholder="Rechercher" title="Rechercher par Nom/Type de maladie">
+                </div>
+                <!-- /input-group --></div>
+</form>
+
+
+
+</table>
+  <a href="{{path('listproduitsNom')}}"<button type="button" class="btn btn-warning">trier maladie par Nom</button>
+  <a href="{{path('a')}}"<button type="button" class="btn btn-warning">Ajouter maladie</button></a>
+  <a href="{{path('list_Traitement')}}"<button type="button" class="btn btn-info">liste traitements</button></a>
+</button></a>
+
+
+
+
+
+
+   </div>
+    </div>
+
+
+ {% endblock %}
