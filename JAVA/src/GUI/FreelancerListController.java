@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package GUI;
-import Services.Servicefreelancer;
+import Services.Servicemedecin;
 
 import java.io.IOException;
 import java.net.URL;
@@ -38,9 +38,9 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import Entities.freelancer;
-import Services.Servicefreelancer;
-import Entities.freelancer;
+import Entities.medecin;
+import Services.Servicemedecin;
+import Entities.medecin;
 import Utils.MyDB;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
@@ -63,7 +63,7 @@ import javax.swing.JOptionPane;
  * @author donia
  */
 public class FreelancerListController implements Initializable {
-        ObservableList<freelancer> list = FXCollections.observableArrayList();
+        ObservableList<medecin> list = FXCollections.observableArrayList();
 
 
     @FXML
@@ -71,26 +71,26 @@ public class FreelancerListController implements Initializable {
     @FXML
     private AnchorPane contentPane;
     @FXML
-    private TableView<freelancer> tableView;
+    private TableView<medecin> tableView;
 
     @FXML
-    private TableColumn<freelancer , String> nomCol;
+    private TableColumn<medecin , String> nomCol;
     @FXML
-    private TableColumn<freelancer , String> prenomCol;
+    private TableColumn<medecin , String> prenomCol;
     @FXML
-    private TableColumn<freelancer , String> cinCol;
+    private TableColumn<medecin , String> cinCol;
     @FXML
-    private TableColumn<freelancer , String> mailCol;
+    private TableColumn<medecin , String> mailCol;
     @FXML
-    private TableColumn<freelancer , String> mdpCol;
+    private TableColumn<medecin , String> mdpCol;
     @FXML
-    private TableColumn<freelancer , String> adresseCol;
+    private TableColumn<medecin , String> adresseCol;
     @FXML
-    private TableColumn<freelancer , String> phoneCol;
+    private TableColumn<medecin , String> phoneCol;
  private Connection cnx = MyDB.getInstance().getCnx();
- Servicefreelancer su = new Servicefreelancer() ;
+ Servicemedecin su = new Servicemedecin() ;
     @FXML
-    private TableColumn<freelancer , String> metierCol;
+    private TableColumn<medecin , String> metierCol;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -124,7 +124,7 @@ public class FreelancerListController implements Initializable {
             pst = cnx.prepareStatement(req);
             ResultSet result = pst.executeQuery();
             while(result.next()) {
-                list.add(new freelancer(result.getString("metier"),result.getInt("id"), result.getString("nom"), result.getString("prenom"),result.getInt("cin"), result.getString("email"), result.getString("mdp"), result.getString("adresse"), result.getInt("telephone")));    
+                list.add(new medecin(result.getString("metier"),result.getInt("id"), result.getString("nom"), result.getString("prenom"),result.getInt("cin"), result.getString("email"), result.getString("mdp"), result.getString("adresse"), result.getInt("telephone")));    
             }
     } catch (SQLException ex) {
             System.out.println(ex.getMessage());        }
@@ -135,7 +135,7 @@ public class FreelancerListController implements Initializable {
     @FXML
     private void handlePlaceDelete(ActionEvent event) {
         //Fetch the selected row
-        freelancer selectedForDeletion = tableView.getSelectionModel().getSelectedItem();
+        medecin selectedForDeletion = tableView.getSelectionModel().getSelectedItem();
         if (selectedForDeletion == null) {
             JOptionPane.showMessageDialog(null,"No freelancer selected ,Please select a freelancer for deletion.");
             return;
@@ -160,7 +160,7 @@ public class FreelancerListController implements Initializable {
     @FXML
     private void handlePlaceEdit(ActionEvent event) {
         //Fetch the selected row
-        freelancer selectedForEdit = tableView.getSelectionModel().getSelectedItem();
+        medecin selectedForEdit = tableView.getSelectionModel().getSelectedItem();
         if (selectedForEdit == null) {
             JOptionPane.showMessageDialog(null, "No Place selected, Please select a Place for edit.");
             return;

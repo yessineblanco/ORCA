@@ -38,7 +38,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import Entities.User;
-import Entities.freelancer;
+import Entities.medecin;
 import Services.ServiceUser;
 import Utils.MyDB;
 import com.jfoenix.controls.JFXTextField;
@@ -125,7 +125,7 @@ public class AdminListController implements Initializable {
 
     private void loadData() {
         list.clear();
-        String req = "SELECT * FROM user ";
+        String req = "SELECT * FROM `user`  WHERE `archive`='" + 0 + "' ";
 
         PreparedStatement pst;
         try {

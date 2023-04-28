@@ -6,10 +6,10 @@
 package GUI;
 
 import Services.Serviceclient;
-import Services.Servicefreelancer;
+import Services.Servicemedecin;
 import Entities.User;
 import Entities.client;
-import Entities.freelancer;
+import Entities.medecin;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import java.io.File;
@@ -66,7 +66,7 @@ public class inscriptionController implements Initializable {
     TilePane r = new TilePane();
     @FXML
     private ChoiceBox<String> role;
-    String st[] = {"Coach", "Client"};
+    String st[] = {"Medecin", "Client"};
     ObservableList<String> list = FXCollections.observableArrayList(st);
     @FXML
     private JFXButton insert_image;
@@ -109,7 +109,7 @@ String res="nodata";
 
     System.out.println("Selection made: [" + selectedIndex + "] " + selectedItem);
     System.out.println("   ChoiceBox.getValue(): " + role.getValue());
-    if (role.getValue() == "Coach"){
+    if (role.getValue() == "Medecin"){
             metier.setOpacity(1);
                 domaine.setOpacity(0);
 
@@ -140,7 +140,7 @@ String res="nodata";
     int m;
     String maile;
         String value = (String) role.getValue();
-           Servicefreelancer sm =new Servicefreelancer();
+           Servicemedecin sm =new Servicemedecin();
             Serviceclient cm =new Serviceclient();
        List<String> lst=new ArrayList<>();
        lst=sm.afficherAllEmails();
@@ -198,7 +198,7 @@ String res="nodata";
             alert.show();
            
         }
-  if ( value =="Coach" ){
+  if ( value =="Medecin" ){
    String ametier = metier.getText() ;
          if (ametier.isEmpty()){
             
@@ -211,8 +211,8 @@ String res="nodata";
             handleEditOperation();
             return;
         }
-         Servicefreelancer sf = new Servicefreelancer() ;
-             freelancer us = new freelancer(metier.getText(),nom.getText(), prenom.getText(),Integer.parseInt(cin.getText()),value ,mail.getText(),doHashing(mdp.getText()),adresse.getText(),Integer.parseInt(phone.getText()),pi1,GName.getText()) ;
+         Servicemedecin sf = new Servicemedecin() ;
+             medecin us = new medecin(metier.getText(),nom.getText(), prenom.getText(),Integer.parseInt(cin.getText()),value ,mail.getText(),doHashing(mdp.getText()),adresse.getText(),Integer.parseInt(phone.getText()),pi1,GName.getText()) ;
              System.out.println(us.toString());
             sf.add(us);
               MailSender.sendMail(us);

@@ -6,11 +6,11 @@
 package GUI;
 
 import GUI.AdminPanelController;
-import Services.Servicefreelancer;
-import Services.Servicefreelancer;
+import Services.Servicemedecin;
+import Services.Servicemedecin;
 import Entities.User;
-import Entities.freelancer;
-import Entities.freelancer;
+import Entities.medecin;
+import Entities.medecin;
 import Services.ServiceUser;
 import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
@@ -58,7 +58,7 @@ public class AddFreelancerController implements Initializable {
     private JFXTextField nom;
      Boolean IsEditibale = false ;
      String role = "freelancer";
-     Servicefreelancer sf = new Servicefreelancer();
+     Servicemedecin sf = new Servicemedecin();
      int id ;
     @FXML
     private JFXTextField metier;
@@ -72,7 +72,7 @@ boolean ok = true;
     }    
 
    
-        public void inflateUI(freelancer place) {
+        public void inflateUI(medecin place) {
 
     }
         
@@ -126,12 +126,12 @@ boolean ok = true;
             handleEditOperation();
             return;
         }    
-        freelancer pv = new freelancer(anom, aprenom,acin,ametier,role, amail, amdp,adr ,aphone) ; 
+        medecin pv = new medecin(anom, aprenom,acin,ametier,role, amail, amdp,adr ,aphone) ; 
          sf.add(pv);
          closeStage();
     }
 private void handleEditOperation(){
-    freelancer us = new freelancer(id ,nom.getText(), prenom.getText(),Integer.parseInt(cin.getText()),metier.getText(),role ,mail.getText(),mdp.getText(),adresse.getText(),Integer.parseInt(phone.getText())) ;
+    medecin us = new medecin(id ,nom.getText(), prenom.getText(),Integer.parseInt(cin.getText()),metier.getText(),role ,mail.getText(),mdp.getText(),adresse.getText(),Integer.parseInt(phone.getText())) ;
 
     System.out.println(us.toString());
     sf.modifier(us);
@@ -139,7 +139,7 @@ private void handleEditOperation(){
     closeStage();
 }
 
-    void infalteUI(freelancer place) {
+    void infalteUI(medecin place) {
         nom.setText(place.getNom());
         prenom.setText(place.getPrenom());
         cin.setText(String.valueOf(place.getCin()));

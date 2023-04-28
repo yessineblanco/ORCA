@@ -9,9 +9,9 @@ package GUI;
  * @author DELL
  */
 import Services.Serviceclient;
-import Services.Servicefreelancer;
+import Services.Servicemedecin;
 import Entities.client;
-import Entities.freelancer;
+import Entities.medecin;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;

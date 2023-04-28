@@ -6,7 +6,7 @@ package Services;
 
 import Entities.User;
 import Entities.client;
-import Entities.freelancer;
+import Entities.medecin;
 import Utils.MyDB;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,15 +23,15 @@ import java.util.logging.Logger;
  * @author DELL
  *
  */
-public class Servicefreelancer implements IServices<freelancer> {
+public class Servicemedecin implements IServices<medecin> {
 
     Connection cnx;
     private Statement ste;
      private PreparedStatement pste;
      
 
-    public freelancer getUserByEmail(String email) {
-        freelancer freelancer = null;
+    public medecin getUserByEmail(String email) {
+        medecin freelancer = null;
         try {
             cnx = (Connection) MyDB.getInstance().getCnx();
             PreparedStatement preparedStatement = cnx.prepareStatement("SELECT * FROM user WHERE email = ?");
@@ -39,7 +39,7 @@ public class Servicefreelancer implements IServices<freelancer> {
             ResultSet rs = preparedStatement.executeQuery();
             ste = cnx.createStatement();
             if (rs.next()) {
-                freelancer = new freelancer();
+                freelancer = new medecin();
                 freelancer.setId(rs.getInt(1));
                 freelancer.setNom(rs.getString("nom"));
                 freelancer.setPrenom(rs.getString("prenom"));
@@ -60,7 +60,7 @@ public class Servicefreelancer implements IServices<freelancer> {
         return freelancer;
     }
 
-    public void add(freelancer t) {
+    public void add(medecin t) {
         try {
             String qry = "INSERT INTO `user`( `nom`, `prenom`, `cin`, `telephone`, `adresse`, `role`,`email`, `mdp`,`metier`, `Image`,`Github_Username`)  VALUES ('" + t.getNom() + "','" + t.getPrenom() + "','" + t.getCin() + "','" + t.getTelephone() + "','" + t.getAdresse() + "','" + t.getRole() + "','" + t.getEmail() + "','" + t.getMdp() + "','" + t.getMetier() + "','" + t.getImage()+ "','" + t.getGUserName()+ "')";
             cnx = (Connection) MyDB.getInstance().getCnx();
@@ -75,15 +75,15 @@ public class Servicefreelancer implements IServices<freelancer> {
     }
 
     @Override
-    public List<freelancer> afficher() {
-        List<freelancer> freelancers = new ArrayList<>();
+    public List<medecin> afficher() {
+        List<medecin> freelancers = new ArrayList<>();
         try {
             String qry = "SELECT * FROM `user` WHERE `archive`='" + 0 + "' ";
             cnx = MyDB.getInstance().getCnx();
             Statement stm = cnx.createStatement();
             ResultSet rs = stm.executeQuery(qry);
             while (rs.next()) {
-                freelancer p = new freelancer();
+                medecin p = new medecin();
                 p.setId(rs.getInt(1));
                 p.setNom(rs.getString("nom"));
                 p.setPrenom(rs.getString("prenom"));
@@ -105,7 +105,7 @@ public class Servicefreelancer implements IServices<freelancer> {
     }
 
   @Override
-    public void modifier(freelancer t) {
+    public void modifier(medecin t) {
         String role = "freelancer";
         String qry = "UPDATE user SET nom=?,prenom=?,cin=?,metier=?,role=?,email=?,mdp=?,adresse=?,telephone=? WHERE id=?";
             cnx = MyDB.getInstance().getCnx();
@@ -139,7 +139,7 @@ public class Servicefreelancer implements IServices<freelancer> {
     }
        
     @Override
-    public void modifierr( int id ,freelancer t)    {
+    public void modifierr( int id ,medecin t)    {
      
  
         String req = "UPDATE `user` SET "
@@ -165,7 +165,7 @@ public class Servicefreelancer implements IServices<freelancer> {
             pste.executeUpdate();
             System.out.println("freelancer modifie");
         } catch (SQLException ex) {
-            Logger.getLogger(Servicefreelancer.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Servicemedecin.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
   
@@ -209,7 +209,7 @@ public class Servicefreelancer implements IServices<freelancer> {
     
     
         @Override
-        public void supprimer(freelancer t) {  
+        public void supprimer(medecin t) {  
         
          try {
                 String qry = "UPDATE user SET archive ='" + "1" + "' WHERE id=" + t.getId() + ";";;

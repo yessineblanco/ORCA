@@ -165,7 +165,7 @@ public class FrontFreelancerController  implements Initializable {
     }
 
     private Stage getStage() {
-        return (Stage) ButtonAnnonce.getScene().getWindow();
+        return (Stage) image_view.getScene().getWindow();
     }
  private void closeStage(ActionEvent event) {
         getStage().close();

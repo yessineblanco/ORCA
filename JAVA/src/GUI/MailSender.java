@@ -11,7 +11,7 @@
 package GUI;
 
 import Entities.User;
-import Entities.freelancer;
+import Entities.medecin;
 import static GUI.inscriptionController.doHashing;
 import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
@@ -50,7 +50,7 @@ import javax.mail.internet.MimeMessage;
 >>>>>>> origin/main
  */
 public class MailSender {
-    public static void sendMail(freelancer freelancer) throws Exception{
+    public static void sendMail(medecin freelancer) throws Exception{
         System.out.println("Preparing to send email");
         Properties p = new Properties();
         
@@ -60,8 +60,8 @@ public class MailSender {
              p.put("mail.smtp.ssl.trust", "smtp.gmail.com");
         p.put("mail.smtp.port", "587");
         
-        String myAccountEmail = "kkhedma1@gmail.com";
-        String password = "attrirnlkuijatin";
+        String myAccountEmail = "assil.maalel@esprit.tn";
+        String password = "06999239";
         
         Session session = Session.getInstance(p , new Authenticator() {
         @Override 
@@ -82,15 +82,15 @@ public class MailSender {
     
     }
 
-    private static Message prepareMessage(Session session, String myAccountEmail, freelancer freelancer) {
+    private static Message prepareMessage(Session session, String myAccountEmail, medecin freelancer) {
         try{
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(myAccountEmail));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(freelancer.getEmail()));
-            message.setSubject("khedma");
-            String htmlcode="  <center><img src=\"http://image.noelshack.com/fichiers/2023/09/4/1677711658-logo.png\" alt=\"Khedma\" height=50%;width=50%></center>"
+            message.setSubject("ORCA");
+            String htmlcode="  <center></center>"
 
-                    + "<center><h2>Bienvenue sur notre site  KHEDMA</h2> <br><h4>Facilite votre travaille avec khedma </h4></center></br>"
+                    + "<center><h2>Bienvenue sur notre site  ORCA</h2> <br><h4>Facilite votre travaille avec ORCA </h4></center></br>"
                   ;
 
               

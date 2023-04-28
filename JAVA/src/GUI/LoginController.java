@@ -6,14 +6,14 @@
 package GUI;
 
 import Services.Serviceclient;
-import Services.Servicefreelancer;
+import Services.Servicemedecin;
 import Entities.CurrentUser;
 import Entities.Globals;
 import Entities.SingleMail;
 import Entities.SingleUser;
 import Entities.User;
 import Entities.client;
-import Entities.freelancer;
+import Entities.medecin;
 import static GUI.inscriptionController.doHashing;
 
 import Services.ServiceUser;
@@ -100,8 +100,8 @@ User ua = new User();
 
         String pswd = doHashing(password.getText());
         String mail = email.getText();
-        freelancer fre = new freelancer();
-        Servicefreelancer sf = new Servicefreelancer();
+        medecin fre = new medecin();
+        Servicemedecin sf = new Servicemedecin();
          client cli = new client();
         Serviceclient cl = new Serviceclient();
         if (mail.isEmpty() || pswd.isEmpty()) {

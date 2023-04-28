@@ -37,8 +37,8 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import Entities.freelancer;
-import Services.Servicefreelancer;
+import Entities.medecin;
+import Services.Servicemedecin;
 import Entities.SingleMail;
 import Entities.User;
 import Utils.MyDB;
@@ -67,12 +67,12 @@ import javax.swing.JOptionPane;
  * @author donia
  */
 public class FreelancerPanelController implements Initializable {
-        ObservableList<freelancer> list = FXCollections.observableArrayList();
+        ObservableList<medecin> list = FXCollections.observableArrayList();
 
 
 
  private Connection cnx = MyDB.getInstance().getCnx();
- Servicefreelancer su = new Servicefreelancer() ;
+ Servicemedecin su = new Servicemedecin() ;
     @FXML
     private AnchorPane left_main;
     @FXML
@@ -94,10 +94,10 @@ public class FreelancerPanelController implements Initializable {
     @FXML 
     private TextField adresse;
             
-Servicefreelancer sf = new Servicefreelancer();
+Servicemedecin sf = new Servicemedecin();
 SingleMail smail = SingleMail.getInstance();
 String mial =  smail.getMail();
-freelancer fr =new freelancer();
+medecin fr =new medecin();
     @FXML
     private Button EditButton;
     @FXML
@@ -156,7 +156,7 @@ String pr = prenom.getText();
  String me = metier.getText();
  String ad = adresse.getText();
  String md = mdp.getText();
- freelancer us = new freelancer(me,fr.getId() ,no, pr, ci, ma, md, ad,te);
+ medecin us = new medecin(me,fr.getId() ,no, pr, ci, ma, md, ad,te);
         System.out.println( "the name we put  "+ us.toString() + " the Original Name  " + fr.toString());
     try {
             sf.modifier(us);
@@ -170,7 +170,7 @@ String pr = prenom.getText();
 
     @FXML
     private void handleDelete(ActionEvent event) {
-freelancer us = sf.getUserByEmail(mial);
+medecin us = sf.getUserByEmail(mial);
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Deleting freelancer");
@@ -202,7 +202,7 @@ freelancer us = sf.getUserByEmail(mial);
                   final Node source = (Node) event.getSource();
 
           
-       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FrontCoach.fxml"));
+       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FrontMedecin.fxml"));
             Parent root = (Parent) fxmlLoader.load();
            final Stage stage = (Stage) source.getScene().getWindow();
             stage.setScene(new Scene(root)); 
