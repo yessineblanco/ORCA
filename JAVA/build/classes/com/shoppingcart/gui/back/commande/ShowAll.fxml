@@ -20,7 +20,7 @@
                 </font>
             </Text>
         </StackPane>
-        <TextField fx:id="searchTF" alignment="CENTER" onKeyReleased="#search" prefHeight="50.0" prefWidth="350.0" promptText="Rechercher par User" styleClass="form-control-white" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="10.0">
+        <TextField fx:id="searchTF" alignment="CENTER" layoutX="218.0" layoutY="11.0" onKeyReleased="#search" prefHeight="50.0" prefWidth="350.0" promptText="Rechercher par User" styleClass="form-control-white" AnchorPane.leftAnchor="218.0" AnchorPane.topAnchor="11.0">
             <opaqueInsets>
                 <Insets />
             </opaqueInsets>

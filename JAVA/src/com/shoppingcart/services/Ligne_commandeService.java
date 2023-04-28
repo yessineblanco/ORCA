@@ -31,19 +31,16 @@ public class Ligne_commandeService {
     public List<Ligne_commande> getAll() {
         List<Ligne_commande> listLigne_commande = new ArrayList<>();
         try {
-            preparedStatement = connection.prepareStatement("SELECT *\n" +
-"FROM `ligne_commande` AS l\n" +
-"LEFT JOIN `products` AS p ON l.produit_id = p.id\n" +
-"LEFT JOIN `commande` AS c ON l.commande_id = c.id;");
+            preparedStatement = connection.prepareStatement("SELECT * FROM `ligne_commande`");
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
                 listLigne_commande.add(new Ligne_commande(
                         resultSet.getInt("id"),
-                        new RelationObject(resultSet.getInt("commande_id"), String.valueOf(resultSet.getInt("c.id"))),
+                        new RelationObject(resultSet.getInt("commande_id"), String.valueOf(resultSet.getInt("commande_id"))),
                         resultSet.getInt("quantite"),
-                        new RelationObject(resultSet.getInt("produit_id"), resultSet.getString("p.title")),
+                        new RelationObject(resultSet.getInt("produit_id"), resultSet.getString("produit_id")),
                         resultSet.getFloat("price")
                 ));
             }
@@ -81,7 +78,7 @@ public class Ligne_commandeService {
             preparedStatement = connection.prepareStatement("SELECT * FROM `products`");
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                listProductss.add(new RelationObject(resultSet.getInt("id"), resultSet.getString("nom")));
+                listProductss.add(new RelationObject(resultSet.getInt("id"), resultSet.getString("title")));
             }
         } catch (SQLException exception) {
             System.out.println("Error (getAll) productss : " + exception.getMessage());
@@ -95,7 +92,7 @@ public class Ligne_commandeService {
             preparedStatement = connection.prepareStatement("SELECT * FROM `commande`");
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                listProductss.add(new RelationObject(resultSet.getInt("id"), resultSet.getString("title")));
+                listProductss.add(new RelationObject(resultSet.getInt("id"), resultSet.getString("id")));
             }
         } catch (SQLException exception) {
             System.out.println("Error (getAll) commande : " + exception.getMessage());

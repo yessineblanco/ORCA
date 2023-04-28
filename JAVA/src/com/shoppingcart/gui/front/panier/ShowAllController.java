@@ -5,6 +5,7 @@ import com.shoppingcart.entities.Commande;
 import com.shoppingcart.entities.Ligne_commande;
 import com.shoppingcart.gui.front.MainWindowController;
 import com.shoppingcart.services.CommandeService;
+import com.shoppingcart.services.SMSNotifier;
 import com.shoppingcart.services.Ligne_commandeService;
 import com.shoppingcart.utils.AlertUtils;
 import com.shoppingcart.utils.Constants;
@@ -57,7 +58,7 @@ public class ShowAllController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         updateTotal();
 
-        setDisableButtons(true);
+        setDisableButtons(false);
 
         produitTC.setCellValueFactory(new PropertyValueFactory<>("produitId"));
         quantiteTC.setCellValueFactory(new PropertyValueFactory<>("quantite"));
@@ -78,6 +79,7 @@ public class ShowAllController implements Initializable {
         }
     }
 
+    @FXML
     public void setSelected(MouseEvent mouseEvent) {
         currentIndex = tableView.getSelectionModel().getSelectedIndex();
         currentLigne_commande = tableView.getSelectionModel().getSelectedItem();
@@ -97,7 +99,11 @@ public class ShowAllController implements Initializable {
                         prixTotal,
                         new RelationObject(MainApp.getSession().getId(), MainApp.getSession().getEmail())
                 ));
-
+        SMSNotifier sms = new SMSNotifier();
+                
+                    String message ="Votre Commande est valider ";
+                    
+                  sms.sendSms( message);
         Mailer.sendMail(MainApp.getSession().getEmail(), "Commande", "<h1>Validation Commande</h1> <br/> <h2><b>Votre commande a été ajouté</b></h2>");
         MainWindowController.getInstance().loadInterface(Constants.FXML_FRONT_DISPLAY_ALL_COMMANDE);
     }

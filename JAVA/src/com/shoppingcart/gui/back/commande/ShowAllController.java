@@ -24,12 +24,16 @@ import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.*;
+import javafx.collections.ObservableList;
+import javafx.scene.control.TableView;
 
 public class ShowAllController implements Initializable {
 
     public static Commande currentCommande;
 
+    private TableView<Commande> tableview;
     @FXML
     public Text topText;
     @FXML
@@ -40,6 +44,7 @@ public class ShowAllController implements Initializable {
     public TextField searchTF;
 
     List<Commande> listCommande;
+    ObservableList<Commande>obs;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

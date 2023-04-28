@@ -21,9 +21,9 @@ public class Mailer {
         properties.put("mail.smtp.port", "587");
 
         //Your gmail address
-        String myAccountEmail = "pidev.app.esprit@gmail.com";
+        String myAccountEmail = "skander.laghmardi@esprit.tn";
         //Your gmail password
-        String password = "pidev-cred";
+        String password = "191JMT3620";
 
         //Create a session with account credentials
         Session session = Session.getInstance(properties, new Authenticator() {

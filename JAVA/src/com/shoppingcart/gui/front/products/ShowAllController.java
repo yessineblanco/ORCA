@@ -105,7 +105,7 @@ public class ShowAllController implements Initializable {
 
     private void addToCart(Products products) {
         Ligne_commandeService.getInstance().add(new Ligne_commande(
-                new RelationObject(76, ""),
+                new RelationObject(6, ""),
                 1,
                 new RelationObject(products.getId(), ""),
                 products.getPrice()

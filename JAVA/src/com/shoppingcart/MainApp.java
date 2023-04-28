@@ -40,7 +40,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        setSession(new User(1, "emna", "emasmoudi135@gmail.com"));
+        setSession(new User(1, "skander", "skander.laghmardi@esprit.tn"));
 
         mainStage = primaryStage;
         loadLogin();
